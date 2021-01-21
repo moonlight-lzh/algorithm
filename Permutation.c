@@ -26,6 +26,10 @@ void dfs(int *nums, int numsSize, int **returnArr, int *returnSize, int **return
             // 当前数已经使用
             continue;
         }
+        // 剪枝去重
+        if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == 0) {
+            continue;
+        }
         used[i] = 1;
         tempArr[tempSize++] = nums[i];
         dfs(nums, numsSize, returnArr, returnSize, returnColumnSizes, tempArr, tempSize, used);
