@@ -28,8 +28,8 @@ void dfs(int *nums, int numsSize, int **returnArr, int *returnSize, int **return
         return;
     }
     for (int i = 0; i < numsSize; ++i) {
+        // 大剪枝
         if (used[i]) {
-            // 当前数已经使用
             continue;
         }
         // 剪枝去重
