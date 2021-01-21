@@ -2,7 +2,13 @@
 #include <string.h>
 
 #define MAX_SIZE 1000
-
+/// 整数比较
+/// \param a 整数A 
+/// \param b 整数B
+/// \return 大于0，等于0，小于0
+int cmp(const int *a, const int *b) {
+    return *(int *) a > *(int *) b;
+}
 /// 深度优先搜索
 /// \param nums 待排列数组
 /// \param numsSize 待排数组大小
@@ -48,13 +54,18 @@ int **permute(int *nums, int numsSize, int *returnSize, int **returnColumnSizes)
     if (nums == NULL || numsSize < 1) {
         return NULL;
     }
+    // 排序，用于去重
+    qsort(nums, numsSize, sizeof(int), cmp);
+    // 结果数组
     int **returnArr = (int **) malloc(sizeof(int *) * MAX_SIZE);
     *returnColumnSizes = (int *) malloc(sizeof(int) * MAX_SIZE);
-    // used数组标记是否使用
+    // used标记元素是否使用
     int *used = (int *) malloc(sizeof(int) * numsSize);
     memset(used, 0, sizeof(int) * numsSize);
+    // 临时数组存储排列结果
     int *tempArr = (int *) malloc(sizeof(int) * numsSize);
     int tempSize = 0;
+    // 深度优先搜索
     dfs(nums, numsSize, returnArr, returnSize, returnColumnSizes, tempArr, tempSize, used);
     // 释放申请的堆空间
     free(tempArr);
